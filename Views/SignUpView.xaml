@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Friendships.Views.SignUpView"
+             Title="SignUpView"
+             xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
+             x:DataType="viewmodel:SignUpViewModel">
+    <ScrollView BackgroundColor="#00E0EE">
+
+        <StackLayout Background="#00E0EE"
+                     Padding="30"
+                     VerticalOptions="Center">
+            <Label Text="SIGN UP"
+                   TextColor="Black"
+                   FontFamily="Poppins-Bold"
+                   FontSize="30"
+                   HorizontalOptions="Center"
+                   Margin="20"/>
+
+            <Frame BackgroundColor="White"
+                   Padding="20"
+                   CornerRadius="10">
+                <StackLayout>
+                    <Entry x:Name="NameEntry"
+                           Placeholder="Full Name"
+                           Text="{Binding FullName}" />
+                    <Entry x:Name="EmailEntry"
+                           Placeholder="Email"
+                           Text="{Binding Email}" />
+                    <Entry x:Name="PasswordEntry"
+                           Placeholder="Password"
+                           IsPassword="True"
+                           Text="{Binding Password}" />
+
+                    <Button Text="SIGN Up"
+                            Background="Orange"
+                            TextColor="White"
+                            Command="{Binding SignUpButtonPressedCommand}"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

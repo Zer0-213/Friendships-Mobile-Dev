@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Friendships.Views.ProfileView"
+             Title="ProfileView"
+             xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
+             x:DataType="viewmodel:ProfileViewModel"
+             NavigationPage.HasNavigationBar="False">
+    <StackLayout Padding="20" VerticalOptions="Center">
+
+        <Label Text="John Doe"
+               FontSize="20"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+
+        <ImageButton HeightRequest="100"
+                     WidthRequest="100"
+                     Aspect="AspectFill"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center"
+                     Source="{Binding ProfilePicture}"
+                     Margin="20"
+                     Command="{Binding ProfileImageClickedCommand}"/>
+
+        <Label Text="Available"
+               FontSize="16"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="Center"
+                     VerticalOptions="CenterAndExpand">
+            <Button Text="Edit Profile"
+                    Margin="5"/>
+            <Button Text="Change Status"
+                    Margin="5" />
+            <Button Text="Logout"
+                    Margin="5" />
+        </StackLayout>
+    </StackLayout>
+    
+</ContentPage>
