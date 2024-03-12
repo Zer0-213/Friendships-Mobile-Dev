@@ -1,18 +1,20 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Friendships.Models;
 using Friendships.Views;
 
 namespace Friendships.ViewModels
 {
     partial class ProfileViewModel : ObservableObject
     {
+
         [ObservableProperty]
-        ImageSource profilePicture;
+        ProfileModel profile;
 
 
-        public ProfileViewModel()
+        public ProfileViewModel(ProfileModel profile)
         {
-            ProfilePicture = "default_pfp.png";
+            Profile = profile;
         }
 
         [RelayCommand]
@@ -31,20 +33,29 @@ namespace Friendships.ViewModels
                     try
                     {
                         FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
-                    if (photo == null)
-                    {
-                        return;
-                    }
+                        if (photo == null)
+                        {
+                            return;
+                        }
 
 
                         Stream photoStream = await photo.OpenReadAsync();
 
-                        Image image = new();
-                        image.Source = ImageSource.FromStream(() => photoStream);
+                        string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "temp.png");
+
+                        FileStream fileStream = File.Create(fileName);
+
+
+                        await photoStream.CopyToAsync(fileStream);
+
+                        fileStream.Close();
+                        photoStream.Dispose();
 
                         await Shell.Current.GoToAsync(nameof(ProfilePhotoEdit), new Dictionary<string, object>
                         {
-                            ["image"] = image
+                            ["profile"] = Profile,
+                            ["image"] = fileName,
+                            
                         });
                     }
                     catch (Exception ex)

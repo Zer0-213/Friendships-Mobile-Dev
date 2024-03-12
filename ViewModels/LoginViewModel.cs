@@ -24,8 +24,6 @@ namespace Friendships.ViewModels
         string password;
         [ObservableProperty]
         bool isLoading;
-        [ObservableProperty]
-        bool showTabs = false;
 
 
 
@@ -45,8 +43,6 @@ namespace Friendships.ViewModels
                 var databaseClient = new FirebaseClient(config.DatabaseURL);
 
                 var profile = await databaseClient.Child("profiles").Child(user.User.Uid).OnceSingleAsync<ProfileModel>();
-
-                ShowTabs = true;
 
                 await Shell.Current.GoToAsync("//MainTab", new Dictionary<string, object>
                 {

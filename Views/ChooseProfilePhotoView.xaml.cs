@@ -8,6 +8,6 @@ public partial class ChooseProfilePhotoView : ContentPage
 	{
 		InitializeComponent();
 
-		BindingContext = new ChooseProfilePhotoViewModel();
+		BindingContext = new ChooseProfilePhotoViewModel(cropper);
 	}
 }

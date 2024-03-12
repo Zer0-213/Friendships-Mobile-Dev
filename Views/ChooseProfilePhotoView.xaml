@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Friendships.Views.ChooseProfilePhotoView"
              xmlns:ci="clr-namespace:CropperImage.MAUI;assembly=CropperImage.MAUI"
-             Title="ChooseProfilePhotoView">
+             Title="ChooseProfilePhotoView"
+             xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
+             x:DataType="viewmodel:ChooseProfilePhotoViewModel">
     <VerticalStackLayout VerticalOptions="Center">
         <ci:CropperImageView x:Name="cropper"
                              HorizontalOptions="Center"

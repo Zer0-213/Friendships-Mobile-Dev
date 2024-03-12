@@ -49,7 +49,7 @@ namespace Friendships.ViewModels
 
                 FirebaseClient databaseClient = new("https://friendships-648c5-default-rtdb.europe-west1.firebasedatabase.app/");
 
-                await databaseClient.Child("profiles").Child(user.User.Uid).PutAsync(new ProfileModel { Name = FullName, ProfilePicture= "default_pfp", Username = Email.Split("@")[0] });
+                await databaseClient.Child("profiles").Child(user.User.Uid).PutAsync(new ProfileModel (  FullName, Email.Split("@")[0], "default_pfp" ));
 
                 await Application.Current.MainPage.DisplayAlert("Alert", "User registered successfully", "Ok");
 

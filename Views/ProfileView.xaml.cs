@@ -11,8 +11,5 @@ public partial class ProfileView : ContentPage
         Routing.RegisterRoute(nameof(ProfilePhotoEdit), typeof(ProfilePhotoEdit));
 		Routing.RegisterRoute(nameof(ChooseProfilePhotoView), typeof(ChooseProfilePhotoView));
 
-        BindingContext = new ProfileViewModel();
-
-
 	}
 }

@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using CropperImage.MAUI;
 using Syncfusion.Maui.Core.Hosting;
+using Friendships.Models;
+using Friendships.ViewModels;
+using Friendships.Views;
 
 namespace Friendships
 {
@@ -19,6 +22,12 @@ namespace Friendships
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton(new ProfileModel("test","test123",""));
+            builder.Services.AddSingleton <ProfileViewModel>();
+            builder.Services.AddSingleton(serviceProvider=> new ProfileView()
+            {
+                BindingContext = serviceProvider.GetService<ProfileViewModel>()
+            });
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif

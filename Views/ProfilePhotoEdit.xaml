@@ -8,18 +8,37 @@
              x:DataType="viewmodel:ProfilePhotoEditViewModel">
     <VerticalStackLayout VerticalOptions="Center">
 
-        <ci:PortraitView ImageSource="{Binding PassedImage.Source}"
+        <ci:PortraitView x:Name="potraitImage"
+                         ImageSource="{Binding PassedImage}"
                          MinimumWidthRequest="200"
                          MinimumHeightRequest="200"
                          Margin="30">
         </ci:PortraitView>
+
+        <ci:CropperImageView x:Name="cropper"
+                             HorizontalOptions="Center"
+                             DefaultImageSource= "{Binding PassedImage}"
+                             WidthRequest="300"
+                             HeightRequest="300"
+                             EditMode="True"
+                             ButtonsColor="White"
+                             CropperFigure="Circle"
+                             ShowSelectButton="True"
+                             SelectSourceOnTap="True"
+                             CroppedImageFormat="PNG"
+                             CroppedImageMaxResolution="200,200"
+                             PhotoImageFormat="PNG"
+                             PhotoImageMaxResolution="1920,1080"
+                             Margin="30" />
 
         <FlexLayout Direction="Row"
                     JustifyContent="SpaceEvenly">
             <Button WidthRequest="150"
                     Text="Cancel"
                     Command="{Binding CancelButtonClickedCommand}"/>
-            <Button WidthRequest="150" Text="Confirm"/>
+            <Button WidthRequest="150"
+                    Text="Confirm"
+                    Command="{Binding ConfirmButtonClickedCommand}"/>
         </FlexLayout>
     </VerticalStackLayout>
 </ContentPage>

@@ -2,14 +2,16 @@
 <Shell x:Class="Friendships.AppShell"
        xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:local="clr-namespace:Friendships"
+       xmlns:profile="clr-namespace:Friendships"
        xmlns:views="clr-namespace:Friendships.Views"
+       xmlns:viewmodel="clr-namespace:Friendships"
+       x:DataType="viewmodel:AppShellViewModel"
        Shell.FlyoutBehavior="Disabled">
 
-    <ShellItem Route="LoginPage">
+    <!--<ShellItem Route="LoginPage">
         <ShellContent Title="Home"
                       ContentTemplate="{DataTemplate views:LoginView}" />
-    </ShellItem>
+    </ShellItem>-->
 
     <TabBar Route="MainTab">
         <Tab Title="Chats"

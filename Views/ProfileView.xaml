@@ -8,7 +8,7 @@
              NavigationPage.HasNavigationBar="False">
     <StackLayout Padding="20" VerticalOptions="Center">
 
-        <Label Text="John Doe"
+        <Label Text="{Binding Profile.Name}"
                FontSize="20"
                FontAttributes="Bold"
                HorizontalOptions="Center"
@@ -19,7 +19,7 @@
                      Aspect="AspectFill"
                      HorizontalOptions="Center"
                      VerticalOptions="Center"
-                     Source="{Binding ProfilePicture}"
+                     Source="{Binding Profile.ProfilePicture}"
                      Margin="20"
                      Command="{Binding ProfileImageClickedCommand}"/>
 

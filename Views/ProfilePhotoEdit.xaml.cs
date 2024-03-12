@@ -10,7 +10,7 @@ public partial class ProfilePhotoEdit : ContentPage
 		InitializeComponent();
 
         Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NAaF5cWWJCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXxfcXRcRGdYVEJ3VkU=");
-        BindingContext = new ProfilePhotoEditViewModel(); 
+        BindingContext = new ProfilePhotoEditViewModel(potraitImage); 
 	}
 
 }
