@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Friendships.Models
@@ -17,16 +18,55 @@ namespace Friendships.Models
         [ObservableProperty]
         string profilePicture;
         [ObservableProperty]
-        Image profileImage;
+        string profileImagePath; 
+        [ObservableProperty]
+        string userUid;
+        [JsonIgnore]
+        public List<ProfileModel> Friends { get; set; }
 
-        public ProfileModel(string name, string username, string profilePicture)
+
+        public ProfileModel()
         {
-            this.name = name;
-            this.username = username;
-            this.profilePicture = profilePicture;
-            if (string.IsNullOrWhiteSpace(profilePicture)) {
-                ProfilePicture = "default_pfp.png";
+
+
+            ProfilePicture = "default_pfp";
+
+            Friends = new List<ProfileModel>();
+
+        }
+
+        public void ConvertBase64()
+        {
+            try
+            {
+
+
+                byte[] imageBytes = Convert.FromBase64String(ProfilePicture);
+
+
+                Stream stream = new MemoryStream(imageBytes);
+
+                string tempFileName = Path.Combine(Path.GetTempPath(), $"{Username}.png");
+
+                try
+                {
+                    File.WriteAllBytes(tempFileName, imageBytes);
+
+
+                    ProfileImagePath = tempFileName;
+                }
+                catch (Exception ex)
+                {
+                    // Handle exceptions accordingly
+                    Console.WriteLine($"Error converting image: {ex.Message}");
+                    ProfileImagePath = null;
+                }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

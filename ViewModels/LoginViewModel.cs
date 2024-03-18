@@ -24,8 +24,8 @@ namespace Friendships.ViewModels
         string password;
         [ObservableProperty]
         bool isLoading;
-
-
+        [ObservableProperty]
+        ProfileModel profile;
 
         [RelayCommand]
         private async Task SignInPressed()
@@ -33,22 +33,22 @@ namespace Friendships.ViewModels
             try
             {
                 IsLoading = true;
-                var config = new Firebase(new EmailProvider[] { new() });
+                var firebase = new Firebase(new EmailProvider[] { new() });
 
 
-                var authClient = new FirebaseAuthClient(config.Config);
+                var authClient = new FirebaseAuthClient(firebase.Config);
 
                 var user = await authClient.SignInWithEmailAndPasswordAsync(Username, Password);
 
-                var databaseClient = new FirebaseClient(config.DatabaseURL);
+                Profile = await firebase.GetProfile(user.User.Uid);
 
-                var profile = await databaseClient.Child("profiles").Child(user.User.Uid).OnceSingleAsync<ProfileModel>();
+                await firebase.RetrieveFriendsList(Profile);
 
-                await Shell.Current.GoToAsync("//MainTab", new Dictionary<string, object>
-                {
-                    ["user"] = profile
-                }
-                );
+                Profile.ConvertBase64();
+
+                SharedProfile.Profile = Profile;
+
+                await Shell.Current.GoToAsync("///MainTab");
 
 
             }

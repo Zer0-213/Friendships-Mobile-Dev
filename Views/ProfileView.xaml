@@ -6,38 +6,39 @@
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
              x:DataType="viewmodel:ProfileViewModel"
              NavigationPage.HasNavigationBar="False">
-    <StackLayout Padding="20" VerticalOptions="Center">
+    <VerticalStackLayout Padding="20"
+                         VerticalOptions="Center">
+
+        <Image  HeightRequest="300"
+                WidthRequest="300"
+                Aspect="AspectFit"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Source="{Binding Profile.ProfileImagePath}"
+                Margin="5" />
+
 
         <Label Text="{Binding Profile.Name}"
-               FontSize="20"
+               FontSize="30"
                FontAttributes="Bold"
                HorizontalOptions="Center"
-               VerticalOptions="Center" />
+               VerticalOptions="Center"
+               Margin="20" />
 
-        <ImageButton HeightRequest="100"
-                     WidthRequest="100"
-                     Aspect="AspectFill"
-                     HorizontalOptions="Center"
-                     VerticalOptions="Center"
-                     Source="{Binding Profile.ProfilePicture}"
-                     Margin="20"
-                     Command="{Binding ProfileImageClickedCommand}"/>
 
-        <Label Text="Available"
-               FontSize="16"
-               HorizontalOptions="Center"
-               VerticalOptions="Center" />
-
-        <StackLayout Orientation="Horizontal"
-                     HorizontalOptions="Center"
-                     VerticalOptions="CenterAndExpand">
-            <Button Text="Edit Profile"
-                    Margin="5"/>
-            <Button Text="Change Status"
-                    Margin="5" />
+        <FlexLayout Direction="Row"
+                    JustifyContent="SpaceEvenly">
+            <Button Text="Change Name"
+                    Margin="5"
+                    HorizontalOptions="CenterAndExpand" />
+            <Button Text="Edit Profile Picture"
+                    HorizontalOptions="CenterAndExpand"
+                    Margin="5"
+                    Command="{Binding ProfileImageClickedCommand}" />
             <Button Text="Logout"
-                    Margin="5" />
-        </StackLayout>
-    </StackLayout>
-    
+                    Margin="5"
+                    HorizontalOptions="CenterAndExpand" />
+        </FlexLayout>
+    </VerticalStackLayout>
+
 </ContentPage>

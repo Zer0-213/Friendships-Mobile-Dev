@@ -8,6 +8,8 @@ public partial class ProfileView : ContentPage
 	{
 		InitializeComponent();
 
+		BindingContext = new ProfileViewModel();
+
         Routing.RegisterRoute(nameof(ProfilePhotoEdit), typeof(ProfilePhotoEdit));
 		Routing.RegisterRoute(nameof(ChooseProfilePhotoView), typeof(ChooseProfilePhotoView));
 

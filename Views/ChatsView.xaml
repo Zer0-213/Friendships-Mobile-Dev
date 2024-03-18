@@ -2,12 +2,29 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Friendships.Views.ChatsView"
-             Title="ChatsView"
-             NavigationPage.HasNavigationBar="False">
-    <VerticalStackLayout>
-        <Label 
-            Text="!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="ChatsView">
+    <Grid>
+        <ScrollView VerticalScrollBarVisibility="Always">
+            <StackLayout x:Name="MessagesContainer">
+            </StackLayout>
+        </ScrollView>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Entry Placeholder="Type a message..."
+                   x:Name="MessageEntry"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center"
+                   Text="test" />
+
+            <Button Text="Send"
+                    Grid.Column="1"
+                    HorizontalOptions="End"
+                    VerticalOptions="End" />
+        </Grid>
+    </Grid>
 </ContentPage>

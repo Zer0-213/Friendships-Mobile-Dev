@@ -8,17 +8,18 @@
        x:DataType="viewmodel:AppShellViewModel"
        Shell.FlyoutBehavior="Disabled">
 
-    <!--<ShellItem Route="LoginPage">
+    <Shell.Items>
         <ShellContent Title="Home"
                       ContentTemplate="{DataTemplate views:LoginView}" />
-    </ShellItem>-->
+    </Shell.Items>
 
     <TabBar Route="MainTab">
         <Tab Title="Chats"
              Icon="dotnet_bot">
-            <ShellContent ContentTemplate="{DataTemplate views:ChatsView}" />
+            <ShellContent ContentTemplate="{DataTemplate views:ChatsDashboardView}" />
         </Tab>
-        <Tab Title="Profile">
+        <Tab Title="Profile"
+             Icon="{Binding Profile.ProfileImagePath}">
             <ShellContent ContentTemplate="{DataTemplate views:ProfileView}" />
         </Tab>
     </TabBar>

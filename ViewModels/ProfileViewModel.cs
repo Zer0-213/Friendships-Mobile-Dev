@@ -10,11 +10,13 @@ namespace Friendships.ViewModels
 
         [ObservableProperty]
         ProfileModel profile;
+        [ObservableProperty]
+        Image pfp;
 
 
-        public ProfileViewModel(ProfileModel profile)
+        public ProfileViewModel()
         {
-            Profile = profile;
+            Profile = SharedProfile.Profile;
         }
 
         [RelayCommand]
@@ -55,7 +57,7 @@ namespace Friendships.ViewModels
                         {
                             ["profile"] = Profile,
                             ["image"] = fileName,
-                            
+
                         });
                     }
                     catch (Exception ex)
@@ -68,7 +70,10 @@ namespace Friendships.ViewModels
 
                 case "Choose from gallery":
 
-                    await Shell.Current.GoToAsync("ChooseProfilePhotoView");
+                    await Shell.Current.GoToAsync("ChooseProfilePhotoView", new Dictionary<string, object>
+                    {
+                        ["profile"] = Profile,
+                    });
                     break;
             }
         }

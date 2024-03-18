@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CropperImage.MAUI;
+using Firebase.Database;
 using Friendships.Models;
+using System.Buffers.Text;
 using System.ComponentModel;
 
 
@@ -53,10 +55,19 @@ namespace Friendships.ViewModels
                 FileStream fileStream = File.Create(fileName);
 
                 await photoStream.CopyToAsync(fileStream);
-
                 fileStream.Close();
 
-                Profile.ProfilePicture = fileName;
+                Profile.ProfilePicture = Convert.ToBase64String(File.ReadAllBytes(fileName));
+
+                Profile.ProfileImagePath = fileName;
+
+                Firebase firebase = new();
+
+              await  firebase.CreateProfile(Profile,false);
+            }
+            catch (FirebaseException ex)
+            {
+                await Shell.Current.DisplayAlert("Error", ex.ToString(), "Close");
             }
             catch (Exception ex)
             {
@@ -69,9 +80,6 @@ namespace Friendships.ViewModels
             }
         }
 
-
     }
-
-
 }
 

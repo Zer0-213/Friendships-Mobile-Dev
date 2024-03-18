@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Friendships.Views.FindFriendView"
+             xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
+             x:DataType="viewmodel:FindFriendViewModel"
+             Title="Find a friend">
+    
+    <FlexLayout Margin="0,20,0,0"
+                Direction="Column"
+                JustifyContent="Start"
+                AlignItems="Center">
+        <FlexLayout.GestureRecognizers>
+            <SwipeGestureRecognizer Direction="Left"
+                                    Command="{Binding SwipeBackCommand}" />
+        </FlexLayout.GestureRecognizers>
+        <HorizontalStackLayout>
+            <Entry x:Name="UserProfile"
+                   Placeholder="Enter username"
+                   Text="{Binding TextEntry}"
+                   HorizontalOptions="CenterAndExpand"
+                   IsTextPredictionEnabled="False"
+                   HorizontalTextAlignment="Center"
+                   MinimumWidthRequest="150"
+                   Margin="10"/>
+            <Button Text="Search"
+                    Command="{Binding SearchButtonClickedCommandCommand}"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="Center"
+                    MaximumHeightRequest="40"
+                    MinimumWidthRequest="70" />
+        </HorizontalStackLayout>
+
+
+            <StackLayout Padding="10"
+                         Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="Center" IsVisible="{Binding IsUserFound}">
+                <FlexLayout Direction="Row"
+                            JustifyContent="SpaceEvenly"
+                            HorizontalOptions="CenterAndExpand"
+                            AlignItems="Center">
+                    <Image Source="{Binding UserProfile.ProfileImagePath}"
+                           WidthRequest="50"
+                           HeightRequest="50"
+                           Aspect="AspectFill"
+                           Margin="0,0,10,0" />
+                    <Label Text="{Binding UserProfile.Name}"
+                           FontAttributes="Bold"
+                           FontSize="Medium" />
+                    <Button Text="Add"
+                            Command="{Binding AddFriendCommand}"
+                            IsEnabled="{Binding AddButtonEnabled}" />
+                </FlexLayout>
+            </StackLayout>
+
+
+        <Label Text="User not found"
+               IsVisible="{Binding IsUserNotFound}"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+    </FlexLayout>
+</ContentPage>

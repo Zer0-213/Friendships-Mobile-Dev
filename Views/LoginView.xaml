@@ -4,7 +4,9 @@
              x:Class="Friendships.Views.LoginView"
              Title="LoginView"
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
-             x:DataType="viewmodel:LoginViewModel">
+             x:DataType="viewmodel:LoginViewModel"
+             Shell.TabBarIsVisible="False"
+>
 
     <ScrollView BackgroundColor="#00E0EE">
 
@@ -13,7 +15,7 @@
                      VerticalOptions="Center">
             <ActivityIndicator IsVisible="{Binding IsLoading}"
                                Color="Black"></ActivityIndicator>
-            <Label Text="SIGN IN"
+            <Label Text="Sign IN"
                    TextColor="Black"
                    FontFamily="Poppins-Bold"
                    FontSize="30"
@@ -32,7 +34,7 @@
                            IsPassword="True"
                            Text="{Binding Password}" />
 
-                    <Button Text="SIGN In"
+                    <Button Text="Sign In"
                             Background="Orange"
                             TextColor="White"
                             Command="{Binding SignInPressedCommand}"

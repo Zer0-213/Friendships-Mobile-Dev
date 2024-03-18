@@ -46,10 +46,13 @@ namespace Friendships.ViewModels
 
                 var user = await authClient.CreateUserWithEmailAndPasswordAsync(Email, Password,FullName);
 
+                await config.CreateProfile(new ProfileModel()
+                {
+                    Name = FullName,
+                    Username = Email.Split("@")[0],
+                    UserUid= user.User.Uid
+                },true);
 
-                FirebaseClient databaseClient = new("https://friendships-648c5-default-rtdb.europe-west1.firebasedatabase.app/");
-
-                await databaseClient.Child("profiles").Child(user.User.Uid).PutAsync(new ProfileModel (  FullName, Email.Split("@")[0], "default_pfp" ));
 
                 await Application.Current.MainPage.DisplayAlert("Alert", "User registered successfully", "Ok");
 
@@ -60,6 +63,10 @@ namespace Friendships.ViewModels
             {
                await Shell.Current.DisplayAlert("Invalid Details", ex.Message, "Ok");
             }catch(AuthenticationException ex)
+            {
+                await Shell.Current.DisplayAlert("Sign Up Error", ex.Message, "Ok");
+            }
+            catch(FirebaseException ex) 
             {
                 await Shell.Current.DisplayAlert("Sign Up Error", ex.Message, "Ok");
             }

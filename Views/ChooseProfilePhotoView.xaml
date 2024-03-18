@@ -7,28 +7,23 @@
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
              x:DataType="viewmodel:ChooseProfilePhotoViewModel">
     <VerticalStackLayout VerticalOptions="Center">
-        <ci:CropperImageView x:Name="cropper"
+            <ci:CropperImageView x:Name="cropper"
                              HorizontalOptions="Center"
                              WidthRequest="300"
                              HeightRequest="300"
                              EditMode="True"
                              ButtonsColor="White"
                              CropperFigure="Circle"
-                             ShowSelectButton="True"
-                             SelectSourceOnTap="True"
-                             CroppedImageFormat="PNG"
-                             CroppedImageMaxResolution="200,200"
-                             PhotoImageFormat="PNG"
-                             PhotoImageMaxResolution="1920,1080"
                              Margin="30"/>
-
+    
         <FlexLayout Direction="Row"
                     JustifyContent="SpaceEvenly">
             <Button WidthRequest="150"
                     Text="Cancel"
                     Command="{Binding CancelButtonClickedCommand}" />
             <Button WidthRequest="150"
-                    Text="Confirm" />
+                    Text="Confirm" 
+                    Command="{Binding ConfirmButtonClickedCommand}"/>
         </FlexLayout>
         
     </VerticalStackLayout>
