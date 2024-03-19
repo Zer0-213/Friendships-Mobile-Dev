@@ -34,7 +34,7 @@ namespace Friendships.ViewModels
         {
             try
             {
-                
+
                 await Cropper.CropImageAsync(true);
 
                 MemoryStream ms = new();
@@ -52,7 +52,7 @@ namespace Friendships.ViewModels
 
                 Firebase firebase = new Firebase();
 
-                await firebase.CreateProfile(Profile,false);
+                await firebase.CreateProfile(Profile, false);
             }
             catch (Exception ex)
             {
@@ -60,6 +60,12 @@ namespace Friendships.ViewModels
                 await Shell.Current.DisplayAlert("Error", "Error saving picture", "Close");
 
             }
+            await Shell.Current.GoToAsync("..");
+        }
+
+        [RelayCommand]
+        private static async Task SwipeBack()
+        {
             await Shell.Current.GoToAsync("..");
         }
     }

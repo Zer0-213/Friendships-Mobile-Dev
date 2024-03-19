@@ -74,5 +74,11 @@ namespace Friendships.ViewModels
 
         }
 
+        [RelayCommand]
+        private static async Task SwipeBack()
+        {
+            await Shell.Current.GoToAsync("..");
+        }
+
     }
 }

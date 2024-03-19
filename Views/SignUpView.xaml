@@ -6,7 +6,10 @@
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
              x:DataType="viewmodel:SignUpViewModel">
     <ScrollView BackgroundColor="#00E0EE">
-
+        <ScrollView.GestureRecognizers>
+            <SwipeGestureRecognizer Command="{Binding SwipeBackCommand}"
+                                    Direction="Left"></SwipeGestureRecognizer>
+        </ScrollView.GestureRecognizers>
         <StackLayout Background="#00E0EE"
                      Padding="30"
                      VerticalOptions="Center">

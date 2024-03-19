@@ -7,9 +7,12 @@
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
              x:DataType="viewmodel:ProfilePhotoEditViewModel">
     <VerticalStackLayout VerticalOptions="Center">
+        <VerticalStackLayout.GestureRecognizers>
+            <SwipeGestureRecognizer Command="{Binding SwipeBackCommand}"
+                                    Direction="Left"></SwipeGestureRecognizer>
+        </VerticalStackLayout.GestureRecognizers>
 
-        <ci:PortraitView
-                         x:Name="potraitImage"
+        <ci:PortraitView x:Name="potraitImage"
                          ImageSource="{Binding PassedImage}"
                          MinimumWidthRequest="200"
                          MinimumHeightRequest="200"
@@ -21,10 +24,10 @@
                     JustifyContent="SpaceEvenly">
             <Button WidthRequest="150"
                     Text="Cancel"
-                    Command="{Binding CancelButtonClickedCommand}"/>
+                    Command="{Binding CancelButtonClickedCommand}" />
             <Button WidthRequest="150"
                     Text="Confirm"
-                    Command="{Binding ConfirmButtonClickedCommand}"/>
+                    Command="{Binding ConfirmButtonClickedCommand}" />
         </FlexLayout>
     </VerticalStackLayout>
 </ContentPage>

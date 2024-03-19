@@ -7,6 +7,9 @@
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
              x:DataType="viewmodel:ChooseProfilePhotoViewModel">
     <VerticalStackLayout VerticalOptions="Center">
+        <VerticalStackLayout.GestureRecognizers>
+            <SwipeGestureRecognizer Command="{Binding SwipeBackCommand}" Direction="Left"></SwipeGestureRecognizer>
+        </VerticalStackLayout.GestureRecognizers>
             <ci:CropperImageView x:Name="cropper"
                              HorizontalOptions="Center"
                              WidthRequest="300"
