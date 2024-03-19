@@ -43,7 +43,10 @@ namespace Friendships.ViewModels
                 {
                     message.Position = "End";
                 }
-                else message.Position = "Start";
+                else
+                {
+                    message.Position = "Start";
+                };
 
                 MessageList.Add(message);
             }

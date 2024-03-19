@@ -2,8 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Friendships.Views.ChatsView"
-             Title="ChatsView"
-             xmlns:viewmodel="clr-namespace:Friendships.ViewModels">
+             xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
+             BackgroundColor="#00E0EE"
+             x:DataType="viewmodel:ChatsViewModel"
+             Title="{Binding ToUser.Name}"
+             xmlns:model="clr-namespace:Friendships.Models">
     <Grid Padding="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -22,7 +25,7 @@
                       HasUnevenRows="True"
                       SeparatorVisibility="None">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="model:MessageModel">
                         <ViewCell>
                             <Grid Margin="5"
                                   Padding="10">
@@ -34,12 +37,13 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Frame Grid.Column="2"
+                                <Frame Grid.Column="0"
                                        Padding="0,10,0,10"
                                        CornerRadius="30"
                                        BackgroundColor="LightBlue"
-                                       HorizontalOptions="{Binding Position}"
-                                       MinimumWidthRequest="100">
+                                       HorizontalOptions="Start"
+                                       MinimumWidthRequest="100"
+                                       >
                                     <Label Text="{Binding TextMessage}"
                                            LineBreakMode="WordWrap"
                                            HorizontalOptions="Center"
@@ -55,7 +59,9 @@
         </Frame>
 
         <Grid Grid.Row="1"
-              Margin="10">
+              Margin="10"
+              Background="White"
+              Padding="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -65,12 +71,13 @@
                    HorizontalOptions="FillAndExpand"
                    VerticalOptions="End"
                    Text="{Binding Text}"
-                   Margin="0,10,0,0" />
+                   TextColor="Black"/>
 
             <Button Text="Send"
                     Grid.Column="1"
                     HorizontalOptions="End"
                     VerticalOptions="End"
+                    Margin="20,0,0,0"
                     IsEnabled="{Binding SendButtonEnabled}"
                     Command="{Binding AddMessageCommand}" />
         </Grid>

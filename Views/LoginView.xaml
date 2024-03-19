@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Friendships.Views.LoginView"
-             Title="LoginView"
+             Title="Friendships"
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
              x:DataType="viewmodel:LoginViewModel"
              Shell.TabBarIsVisible="False"
@@ -15,7 +15,7 @@
                      VerticalOptions="Center">
             <ActivityIndicator IsVisible="{Binding IsLoading}"
                                Color="Black"></ActivityIndicator>
-            <Label Text="Sign IN"
+            <Label Text="Sign In"
                    TextColor="Black"
                    FontFamily="Poppins-Bold"
                    FontSize="30"
@@ -27,7 +27,7 @@
                    CornerRadius="10">
                 <StackLayout>
                     <Entry x:Name="UsernameEntry"
-                           Placeholder="Username"
+                           Placeholder="Email"
                            Text="{Binding Username}" />
                     <Entry x:Name="PasswordEntry"
                            Placeholder="Password"

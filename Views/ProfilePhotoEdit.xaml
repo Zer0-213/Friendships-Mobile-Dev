@@ -3,10 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ci="clr-namespace:CropperImage.MAUI;assembly=CropperImage.MAUI"
              x:Class="Friendships.Views.ProfilePhotoEdit"
-             Title="ProfilePhotoEdit"
+             Title="Profile Picture"
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
-             x:DataType="viewmodel:ProfilePhotoEditViewModel">
-    <VerticalStackLayout VerticalOptions="Center">
+             x:DataType="viewmodel:ProfilePhotoEditViewModel"
+             BackgroundColor="#00E0EE">
+    <VerticalStackLayout VerticalOptions="Center"
+                         BackgroundColor="White">
         <VerticalStackLayout.GestureRecognizers>
             <SwipeGestureRecognizer Command="{Binding SwipeBackCommand}"
                                     Direction="Left"></SwipeGestureRecognizer>
@@ -21,7 +23,8 @@
 
 
         <FlexLayout Direction="Row"
-                    JustifyContent="SpaceEvenly">
+                    JustifyContent="SpaceEvenly"
+                    Margin="10">
             <Button WidthRequest="150"
                     Text="Cancel"
                     Command="{Binding CancelButtonClickedCommand}" />

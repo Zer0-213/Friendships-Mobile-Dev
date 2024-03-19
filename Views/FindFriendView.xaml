@@ -4,12 +4,14 @@
              x:Class="Friendships.Views.FindFriendView"
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
              x:DataType="viewmodel:FindFriendViewModel"
-             Title="Find a friend">
+             Title="Find a friend"
+             BackgroundColor="#00E0EE">
     
     <FlexLayout Margin="0,20,0,0"
                 Direction="Column"
                 JustifyContent="Start"
-                AlignItems="Center">
+                AlignItems="Center"
+                BackgroundColor="White">
         <FlexLayout.GestureRecognizers>
             <SwipeGestureRecognizer Direction="Left"
                                     Command="{Binding SwipeBackCommand}" />

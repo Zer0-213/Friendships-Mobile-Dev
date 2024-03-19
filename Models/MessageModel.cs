@@ -16,5 +16,7 @@ namespace Friendships.Models
         string userUid;
         [ObservableProperty]
         string position;
+        [ObservableProperty]
+        int gridColumn;
     }
 }
