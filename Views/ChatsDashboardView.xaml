@@ -4,7 +4,9 @@
              x:Class="Friendships.Views.ChatsDashboardView"
              Title="Dashboard"
              NavigationPage.HasNavigationBar="False"
-             xmlns:viewmodel="clr-namespace:Friendships.ViewModels">
+             xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
+             x:DataType="viewmodel:ChatsDashboardViewModel"
+             xmlns:model="clr-namespace:Friendships.Models">
 
     <StackLayout Padding="10">
         <Button Text="Find Friend"
@@ -13,11 +15,10 @@
                 Command="{Binding GoToFindFriendsScreenCommand}" />
 
         <ListView ItemsSource="{Binding FriendsList}"
-                  HasUnevenRows="True"
-                  ItemSelected="ListView_ItemSelected">
+                  HasUnevenRows="True">
             <ListView.ItemTemplate>
                 
-                <DataTemplate>
+                <DataTemplate x:DataType="model:ProfileModel">
                     <ViewCell>
                         <Grid Padding="30"
                               BackgroundColor="LightGray">
@@ -29,7 +30,10 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={viewmodel:ChatsDashboardViewModel },Path=ClickUserCommand}"
+                                CommandParameter="{Binding .}"></TapGestureRecognizer>
+                            </Grid.GestureRecognizers>
                             <Image Grid.Column="0"
                                    Source="{Binding ProfileImagePath}"
                                    Aspect="AspectFill"

@@ -12,10 +12,12 @@ namespace Friendships.ViewModels
         [ObservableProperty]
         ProfileModel profile;
 
-    public ObservableCollection<ProfileModel> FriendsList { get; set; } = new();
+        public ObservableCollection<ProfileModel> FriendsList { get; set; }
         public ChatsDashboardViewModel()
         {
             Profile = SharedProfile.Profile;
+
+            FriendsList = new ObservableCollection<ProfileModel>();
 
             foreach (ProfileModel item in Profile.Friends)
             {
@@ -35,10 +37,13 @@ namespace Friendships.ViewModels
         [RelayCommand]
         async Task ClickUser(ProfileModel user)
         {
-            await Shell.Current.GoToAsync(nameof(ChatsView), new Dictionary<string, object>
-            {
-                ["user"] = user,
-            });
+            SharedProfile.ToUser = user;
+
+            Firebase firebase = new();
+            SharedProfile.Messages = await firebase.RetrieveMessages(Profile, user);
+
+
+            await Shell.Current.GoToAsync(nameof(ChatsView));
 
         }
     }

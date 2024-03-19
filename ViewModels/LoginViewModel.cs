@@ -48,7 +48,7 @@ namespace Friendships.ViewModels
 
                 SharedProfile.Profile = Profile;
 
-                await Shell.Current.GoToAsync("///MainTab");
+                await Shell.Current.GoToAsync("//MainTab");
 
 
             }

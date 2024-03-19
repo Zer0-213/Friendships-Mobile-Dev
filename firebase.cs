@@ -5,7 +5,6 @@ using Firebase.Database.Query;
 using Friendships.Models;
 using Newtonsoft.Json;
 using System.Text.Json;
-using static Android.Provider.ContactsContract;
 
 
 namespace Friendships
@@ -108,13 +107,25 @@ namespace Friendships
             profile.Friends = friendsList;
         }
 
-        public async Task<IReadOnlyCollection<FirebaseObject<MessageModel>>> RetrieveMessages(ProfileModel fromUser, ProfileModel toUser)
+        public async Task<List<MessageModel>> RetrieveMessages(ProfileModel fromUser, ProfileModel toUser)
         {
 
             FirebaseClient databaseClient = new FirebaseClient(databaseURL);
-            var messageList = await databaseClient.Child("messages").Child(fromUser.UserUid).Child(toUser.UserUid).OnceAsListAsync<MessageModel>();
+            var messageListJson = await databaseClient.Child("messages").Child(fromUser.UserUid).Child(toUser.UserUid).OnceAsJsonAsync();
+            
+            List<MessageModel> messageList = JsonConvert.DeserializeObject<List<MessageModel>>(messageListJson);
 
-            return messageList;
+
+            return messageList ?? new List<MessageModel>();
+
+        }
+
+        public async Task StoreMessages(ProfileModel fromUser, ProfileModel toUser,List<MessageModel> messages)
+        {
+            FirebaseClient databaseClient = new FirebaseClient(databaseURL);
+
+            await databaseClient.Child("messages").Child(fromUser.UserUid).Child(toUser.UserUid).PutAsync(messages);
+            await databaseClient.Child("messages").Child(toUser.UserUid).Child(fromUser.UserUid).PutAsync(messages);
 
         }
     }

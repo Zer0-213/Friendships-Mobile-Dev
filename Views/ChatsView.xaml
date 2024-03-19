@@ -2,29 +2,77 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Friendships.Views.ChatsView"
-             Title="ChatsView">
-    <Grid>
-        <ScrollView VerticalScrollBarVisibility="Always">
-            <StackLayout x:Name="MessagesContainer">
-            </StackLayout>
-        </ScrollView>
+             Title="ChatsView"
+             xmlns:viewmodel="clr-namespace:Friendships.ViewModels">
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1">
+        <Frame BorderColor="Black"
+               CornerRadius="10"
+               Padding="0"
+               Margin="10"
+               VerticalOptions="Start"
+               HasShadow="True"
+               Grid.Row="0">
+
+            <ListView ItemsSource="{Binding MessageList}"
+                      HasUnevenRows="True"
+                      SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Margin="5"
+                                  Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Frame Grid.Column="2"
+                                       Padding="0,10,0,10"
+                                       CornerRadius="30"
+                                       BackgroundColor="LightBlue"
+                                       HorizontalOptions="{Binding Position}"
+                                       MinimumWidthRequest="100">
+                                    <Label Text="{Binding TextMessage}"
+                                           LineBreakMode="WordWrap"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Start"
+                                           FontSize="14" />
+                                </Frame>
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Frame>
+
+        <Grid Grid.Row="1"
+              Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Entry Placeholder="Type a message..."
-                   x:Name="MessageEntry"
                    HorizontalOptions="FillAndExpand"
-                   VerticalOptions="Center"
-                   Text="test" />
+                   VerticalOptions="End"
+                   Text="{Binding Text}"
+                   Margin="0,10,0,0" />
 
             <Button Text="Send"
                     Grid.Column="1"
                     HorizontalOptions="End"
-                    VerticalOptions="End" />
+                    VerticalOptions="End"
+                    IsEnabled="{Binding SendButtonEnabled}"
+                    Command="{Binding AddMessageCommand}" />
         </Grid>
     </Grid>
 </ContentPage>

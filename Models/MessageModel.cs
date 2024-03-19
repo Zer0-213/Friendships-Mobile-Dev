@@ -12,5 +12,9 @@ namespace Friendships.Models
     {
         [ObservableProperty]
         string textMessage;
+        [ObservableProperty]
+        string userUid;
+        [ObservableProperty]
+        string position;
     }
 }

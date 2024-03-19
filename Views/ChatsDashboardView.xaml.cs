@@ -1,47 +1,50 @@
 using Firebase.Database;
 using Friendships.Models;
 using Friendships.ViewModels;
+using System.Text.Json;
 
 namespace Friendships.Views;
 
 public partial class ChatsDashboardView : ContentPage
 {
-    private ChatsDashboardViewModel _viewModel;
-    public ChatsDashboardView()
+    ProfileModel profile;
+    public ChatsDashboardView(ChatsDashboardViewModel vm)
     {
         InitializeComponent();
+        
+        profile = SharedProfile.Profile;
 
-        _viewModel = new ChatsDashboardViewModel();
-
-        BindingContext = _viewModel;
+        BindingContext = vm;
 
         Routing.RegisterRoute(nameof(FindFriendView), typeof(FindFriendView));
         Routing.RegisterRoute(nameof(ChatsView), typeof(ChatsView));
+
     }
 
     private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
-
         try
         {
-            Console.WriteLine("Selected");
-
-            ProfileModel user = e.SelectedItem as ProfileModel;
-
-            Firebase firebase = new();
-
-            var messages = firebase.RetrieveMessages(_viewModel.Profile, user);
-
-            await Shell.Current.GoToAsync(nameof(ChatsView), new Dictionary<string, object>
+            if (e.SelectedItem != null)
             {
-                ["messages"] = messages,
-                ["user"] = user
-            }) ;
-        }
-        catch(FirebaseException ex)
-        {
-            await Shell.Current.DisplayAlert("Error", "error retreiving messages", "Close");
-        }
+                ProfileModel toUser = e.SelectedItem as ProfileModel;
+                SharedProfile.ToUser = toUser;
 
+                Firebase firebase = new();
+                SharedProfile.Messages = await firebase.RetrieveMessages(profile, toUser);
+
+
+                await Shell.Current.GoToAsync(nameof(ChatsView));
+
+            }
+        }
+        catch (FirebaseException ex)
+        {
+            await Shell.Current.DisplayAlert("Error", "error retrieving messages", "Close");
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "Close");
+        }
     }
 }
