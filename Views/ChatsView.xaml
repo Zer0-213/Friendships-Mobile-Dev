@@ -37,23 +37,23 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Frame Grid.Column="0"
+                                <Frame Grid.Column="{Binding GridColumn}"
                                        Padding="0,10,0,10"
                                        CornerRadius="30"
                                        BackgroundColor="LightBlue"
-                                       HorizontalOptions="Start"
+                                       HorizontalOptions="End"
                                        MinimumWidthRequest="100"
-                                       >
+                                       BorderColor="Black">
                                     <Label Text="{Binding TextMessage}"
                                            LineBreakMode="WordWrap"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Start"
                                            FontSize="14" />
                                 </Frame>
-
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
+
                 </ListView.ItemTemplate>
             </ListView>
         </Frame>

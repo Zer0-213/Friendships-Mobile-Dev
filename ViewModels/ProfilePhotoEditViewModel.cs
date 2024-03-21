@@ -49,17 +49,31 @@ namespace Friendships.ViewModels
             {
 
                 var photoStream = await cropper.CaptureAsync();
+                if (photoStream == null)
+                {
+                    Profile.ProfilePicture.Source = "default_pfp";
+                    Profile.ProfilePictureBase64 = "";
+                }
+                else
+                {
 
-                string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "profile.png");
+                    var fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), $"{Profile.UserUid}.png");
 
-                FileStream fileStream = File.Create(fileName);
+                    FileStream fileStream = File.Create(fileName);
 
-                await photoStream.CopyToAsync(fileStream);
-                fileStream.Close();
+                    await photoStream.CopyToAsync(fileStream);
 
-                Profile.ProfilePicture = Convert.ToBase64String(File.ReadAllBytes(fileName));
 
-                Profile.ProfileImagePath = fileName;
+                    Profile.ProfilePicture = new Image()
+                    {
+                        Source = fileName
+                    };
+
+                    Profile.ImageStreamToBase64(fileStream);
+
+                    fileStream.Close();
+
+                }
 
                 Firebase firebase = new();
 

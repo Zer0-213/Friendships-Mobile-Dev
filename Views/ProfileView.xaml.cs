@@ -12,6 +12,7 @@ public partial class ProfileView : ContentPage
 
         Routing.RegisterRoute(nameof(ProfilePhotoEdit), typeof(ProfilePhotoEdit));
 		Routing.RegisterRoute(nameof(ChooseProfilePhotoView), typeof(ChooseProfilePhotoView));
+		Routing.RegisterRoute("Home", typeof(LoginView));
 
 	}
 }

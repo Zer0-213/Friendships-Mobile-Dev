@@ -12,7 +12,8 @@
 
         <StackLayout Background="#00E0EE"
                      Padding="30"
-                     VerticalOptions="Center">
+                     VerticalOptions="Center"
+                     MaximumWidthRequest="500">
             <ActivityIndicator IsVisible="{Binding IsLoading}"
                                Color="Black"></ActivityIndicator>
             <Label Text="Sign In"
@@ -25,21 +26,26 @@
             <Frame BackgroundColor="White"
                    Padding="20"
                    CornerRadius="10">
-                <StackLayout>
+                <VerticalStackLayout
+                >
                     <Entry x:Name="UsernameEntry"
                            Placeholder="Email"
-                           Text="{Binding Username}" />
+                           Text="{Binding Username}"
+                           FontSize="16"
+                           />
                     <Entry x:Name="PasswordEntry"
                            Placeholder="Password"
                            IsPassword="True"
-                           Text="{Binding Password}" />
+                           Text="{Binding Password}"
+                           FontSize="16"/>
 
                     <Button Text="Sign In"
                             Background="Orange"
                             TextColor="White"
                             Command="{Binding SignInPressedCommand}"
+                            FontSize="16"
                             />
-                </StackLayout>
+                </VerticalStackLayout>
             </Frame>
 
             <Button Text="Don't have an account? Sign Up"

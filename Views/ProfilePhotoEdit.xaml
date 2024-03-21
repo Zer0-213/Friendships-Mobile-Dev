@@ -13,7 +13,23 @@
             <SwipeGestureRecognizer Command="{Binding SwipeBackCommand}"
                                     Direction="Left"></SwipeGestureRecognizer>
         </VerticalStackLayout.GestureRecognizers>
-
+        <Grid Row="1" Padding="10">
+            <Image Source="{Binding PassedImage}"
+               Opacity="0.5" Aspect="AspectFit">
+        </Image>
+        <Image Source="{Binding PassedImage}">
+            <Image.Clip>
+                    <EllipseGeometry x:Name="EllipseClip"
+                                     Center="180,180"
+                                     RadiusX="150"
+                                     RadiusY="150"></EllipseGeometry>
+            </Image.Clip>
+            <Image.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="OnPanUpdated" />
+                    <PinchGestureRecognizer PinchUpdated="OnPinchUpdated" />
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
         <ci:PortraitView x:Name="potraitImage"
                          ImageSource="{Binding PassedImage}"
                          MinimumWidthRequest="200"

@@ -42,7 +42,7 @@
                             JustifyContent="SpaceEvenly"
                             HorizontalOptions="CenterAndExpand"
                             AlignItems="Center">
-                    <Image Source="{Binding UserProfile.ProfileImagePath}"
+                    <Image Source="{Binding UserProfile.ProfilePicture}"
                            WidthRequest="50"
                            HeightRequest="50"
                            Aspect="AspectFill"

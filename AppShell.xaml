@@ -9,17 +9,18 @@
        Shell.FlyoutBehavior="Disabled">
 
     <Shell.Items>
-        <ShellContent Title="Home"
+        <ShellContent Route="Home"
+                      Title="Home"
                       ContentTemplate="{DataTemplate views:LoginView}" />
     </Shell.Items>
 
     <TabBar Route="MainTab">
         <Tab Title="Chats"
-             Icon="dotnet_bot">
+             Icon="chat_icon">
             <ShellContent ContentTemplate="{DataTemplate views:ChatsDashboardView}" />
         </Tab>
         <Tab Title="Profile"
-             Icon="{Binding Profile.ProfileImagePath}">
+             Icon="{Binding Profile.ProfilePicture}">
             <ShellContent ContentTemplate="{DataTemplate views:ProfileView}" />
         </Tab>
     </TabBar>

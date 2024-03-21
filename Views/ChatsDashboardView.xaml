@@ -36,7 +36,7 @@
                                 CommandParameter="{Binding .}"></TapGestureRecognizer>
                             </Grid.GestureRecognizers>
                             <Image Grid.Column="0"
-                                   Source="{Binding ProfileImagePath}"
+                                   Source="{Binding ProfilePicture.Source}"
                                    Aspect="AspectFill"
                                    HeightRequest="60"
                                    WidthRequest="60"
@@ -45,6 +45,7 @@
                                    HorizontalOptions="Center" />
 
                             <Label Grid.Column="1"
+                                   Grid.Row="0"
                                    Text="{Binding Name}"
                                    FontAttributes="Bold"
                                    FontSize="20" />

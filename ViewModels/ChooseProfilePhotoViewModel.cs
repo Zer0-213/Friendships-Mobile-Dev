@@ -38,19 +38,17 @@ namespace Friendships.ViewModels
                 await Cropper.CropImageAsync(true);
 
                 MemoryStream ms = new();
+                ms.Write(Cropper.CroppedImageBytes);
                 ms.Position = 0;
 
-                string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "profile.png");
+                Profile.ProfilePicture = new Image() { Source = ImageSource.FromStream(() => ms) };
 
-                FileStream fileStream = File.Create(fileName);
+                Profile.ImageStreamToBase64(ms);
 
-                await ms.CopyToAsync(fileStream);
+                ms.Close();
 
-                fileStream.Close();
 
-                Profile.ProfilePicture = fileName;
-
-                Firebase firebase = new Firebase();
+                Firebase firebase = new();
 
                 await firebase.CreateProfile(Profile, false);
             }

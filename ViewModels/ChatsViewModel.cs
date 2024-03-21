@@ -41,11 +41,11 @@ namespace Friendships.ViewModels
             {
                 if (Profile.UserUid == message.UserUid)
                 {
-                    message.Position = "End";
+                    message.GridColumn = 1;
                 }
                 else
                 {
-                    message.Position = "Start";
+                    message.GridColumn = 0;
                 };
 
                 MessageList.Add(message);

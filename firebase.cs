@@ -54,16 +54,22 @@ namespace Friendships
             {
                 FirebaseClient firebase = new(databaseURL);
 
-                if(string.IsNullOrWhiteSpace(profile.ProfilePicture))
+                if (string.IsNullOrWhiteSpace(profile.ProfilePictureBase64))
                 {
-                    profile.ProfilePicture = defultPfpBase64;
-                }
-                
+                    profile.ProfilePictureBase64 = defultPfpBase64;
+                } 
 
-                await firebase.Child("profiles").Child(profile.UserUid).PutAsync(profile);
+                await firebase.Child("profiles").Child(profile.UserUid).PutAsync(new ProfileModel()
+                {
+                    UserUid = profile.UserUid,
+                    Username = profile.Username,
+                    ProfilePictureBase64 = profile.ProfilePictureBase64,
+                    Name = profile.Name
+                });
+
                 if (insertUser)
                 {
-                    await firebase.Child("usernames").Child(profile.Username).PutAsync(profile.UserUid);
+                    await firebase.Child("usernames").Child(profile.Username).PutAsync<String>(profile.UserUid);
                 }
             }
             catch (FirebaseException ex)
@@ -84,6 +90,11 @@ namespace Friendships
 
             var Profile = await databaseClient.Child("profiles").Child(uid).OnceSingleAsync<ProfileModel>();
 
+            if (string.IsNullOrWhiteSpace(Profile.ProfilePictureBase64))
+            {
+                Profile.ProfilePictureBase64 = defultPfpBase64;
+            }
+
             return Profile;
         }
 
@@ -96,9 +107,18 @@ namespace Friendships
 
             List<ProfileModel> friendsList = new List<ProfileModel>();
 
+            if (friendsUidList == null)
+            {
+                return;
+            }
+
             foreach (var friend in friendsUidList)
             {
                 var user = await databaseClient.Child("profiles").Child(friend.Value).OnceSingleAsync<ProfileModel>();
+                if (string.IsNullOrWhiteSpace(user.ProfilePictureBase64))
+                {
+                    user.ProfilePictureBase64 = defultPfpBase64;
+                }
 
                 user.ConvertBase64();
                 friendsList.Add(user);

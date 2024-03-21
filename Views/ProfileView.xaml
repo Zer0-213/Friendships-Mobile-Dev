@@ -16,7 +16,7 @@
                 Aspect="AspectFit"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-                Source="{Binding Profile.ProfileImagePath}"
+                Source="{Binding Profile.ProfilePicture.Source}"
                 Margin="5" />
 
 
@@ -30,16 +30,10 @@
 
         <FlexLayout Direction="Row"
                     JustifyContent="SpaceEvenly">
-            <Button Text="Change Name"
-                    Margin="5"
-                    HorizontalOptions="CenterAndExpand" />
             <Button Text="Edit Profile Picture"
                     HorizontalOptions="CenterAndExpand"
                     Margin="5"
                     Command="{Binding ProfileImageClickedCommand}" />
-            <Button Text="Logout"
-                    Margin="5"
-                    HorizontalOptions="CenterAndExpand" />
         </FlexLayout>
     </VerticalStackLayout>
 
