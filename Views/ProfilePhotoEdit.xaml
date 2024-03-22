@@ -5,10 +5,21 @@
              x:Class="Friendships.Views.ProfilePhotoEdit"
              Title="Profile Picture"
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
-             x:DataType="viewmodel:ProfilePhotoEditViewModel"
-             BackgroundColor="#00E0EE">
-        <VerticalStackLayout VerticalOptions="Center"
-                         BackgroundColor="White">
+             x:DataType="viewmodel:ProfilePhotoEditViewModel">
+    <ContentPage.Resources>
+        <Style TargetType="ContentPage">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light = Cyan, Dark =#121212 }"></Setter>
+
+        </Style>
+        <Style TargetType="VerticalStackLayout">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light = White, Dark =#A9A9A9 }"></Setter>
+
+        </Style>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout VerticalOptions="Center">
         <VerticalStackLayout.GestureRecognizers>
             <SwipeGestureRecognizer Command="{Binding SwipeBackCommand}"
                                     Direction="Left"></SwipeGestureRecognizer>

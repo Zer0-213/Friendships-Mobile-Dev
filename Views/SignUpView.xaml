@@ -5,39 +5,53 @@
              Title="SignUpView"
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
              x:DataType="viewmodel:SignUpViewModel">
-    <ScrollView BackgroundColor="#00E0EE">
+    <ContentPage.Resources>
+        <Style TargetType="ScrollView">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light = Cyan, Dark =#121212 }"></Setter>
+
+        </Style>
+        <Style TargetType="StackLayout">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light = Cyan, Dark =#121212 }"></Setter>
+
+        </Style>
+        <Style TargetType="Frame">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light= White, Dark=#A9A9A9}"></Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
         <ScrollView.GestureRecognizers>
             <SwipeGestureRecognizer Command="{Binding SwipeBackCommand}"
                                     Direction="Left"></SwipeGestureRecognizer>
         </ScrollView.GestureRecognizers>
-        <StackLayout Background="#00E0EE"
+        <StackLayout
                      Padding="30"
                      VerticalOptions="Center">
-            <Label Text="SIGN UP"
-                   TextColor="Black"
+            <Label Text="Sign Up"
                    FontFamily="Poppins-Bold"
                    FontSize="30"
                    HorizontalOptions="Center"
                    Margin="20"/>
 
-            <Frame BackgroundColor="White"
+            <Frame
                    Padding="20"
                    CornerRadius="10">
-                <StackLayout>
-                    <Entry x:Name="NameEntry"
+                <StackLayout BackgroundColor="{AppThemeBinding Light=White, Dark=#A9A9A9}">
+                    <Entry
                            Placeholder="Full Name"
                            Text="{Binding FullName}" />
-                    <Entry x:Name="EmailEntry"
+                    <Entry 
                            Placeholder="Email"
                            Text="{Binding Email}" />
-                    <Entry x:Name="PasswordEntry"
+                    <Entry 
                            Placeholder="Password"
                            IsPassword="True"
                            Text="{Binding Password}" />
 
-                    <Button Text="SIGN Up"
-                            Background="Orange"
-                            TextColor="White"
+                    <Button Text="Sign Up"
                             Command="{Binding SignUpButtonPressedCommand}"/>
                 </StackLayout>
             </Frame>

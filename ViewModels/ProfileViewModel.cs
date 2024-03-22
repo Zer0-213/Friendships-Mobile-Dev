@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Friendships.Models;
 using Friendships.Views;
+using Microsoft.Maui.Storage;
 
 namespace Friendships.ViewModels
 {
@@ -23,60 +24,66 @@ namespace Friendships.ViewModels
         private async Task ProfileImageClicked()
         {
             string action = await Application.Current.MainPage.DisplayActionSheet("Select photo", "Cancel", null, "Take Photo", "Choose from gallery");
-            switch (action)
-            {
-                case "Take Photo":
-                    if (!MediaPicker.Default.IsCaptureSupported)
-                    {
-                        await Shell.Current.DisplayAlert("Error", "Camera not supported on this device", "Ok");
-                        return;
-                    }
 
-                    try
-                    {
-                        FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
+            FileResult photo;
+
+            try
+            {
+                switch (action)
+                {
+                    case "Take Photo":
+                        if (!MediaPicker.Default.IsCaptureSupported)
+                        {
+                            await Shell.Current.DisplayAlert("Error", "Camera not supported on this device", "Ok");
+                            return;
+                        }
+                        photo = await MediaPicker.Default.CapturePhotoAsync();
+
                         if (photo == null)
                         {
                             return;
                         }
+                        break;
+
+                    case "Choose from gallery":
+                        photo = await MediaPicker.Default.PickPhotoAsync();
+                        break;
+
+                    default:
+                        return;
+
+                }
 
 
-                        Stream photoStream = await photo.OpenReadAsync();
+                Stream photoStream = await photo.OpenReadAsync();
 
-                        string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "temp.png");
+                string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "temp.png");
 
-                        FileStream fileStream = File.Create(fileName);
+                FileStream fileStream = File.Create(fileName);
 
 
-                        await photoStream.CopyToAsync(fileStream);
+                await photoStream.CopyToAsync(fileStream);
 
-                        fileStream.Close();
-                        photoStream.Dispose();
+                fileStream.Close();
+                photoStream.Dispose();
 
-                        await Shell.Current.GoToAsync(nameof(ProfilePhotoEdit), new Dictionary<string, object>
-                        {
-                            ["profile"] = Profile,
-                            ["image"] = fileName,
+                await Shell.Current.GoToAsync(nameof(ProfilePhotoEdit), new Dictionary<string, object>
+                {
+                    ["profile"] = Profile,
+                    ["image"] = fileName,
 
-                        });
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
-                        await Shell.Current.DisplayAlert("Error", "Error saving picture", "Ok");
-                    }
-
-                    break;
-
-                case "Choose from gallery":
-
-                    await Shell.Current.GoToAsync("ChooseProfilePhotoView", new Dictionary<string, object>
-                    {
-                        ["profile"] = Profile,
-                    });
-                    break;
+                });
             }
-        }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                await Shell.Current.DisplayAlert("Error", "Error saving picture", "Ok");
+            }
 
+
+
+        }
     }
+
 }
+

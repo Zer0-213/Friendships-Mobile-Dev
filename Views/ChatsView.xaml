@@ -3,10 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Friendships.Views.ChatsView"
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
-             BackgroundColor="#00E0EE"
              x:DataType="viewmodel:ChatsViewModel"
+             BackgroundColor="{AppThemeBinding Light=Cyan Dark=#A9A9A9}"
              Title="{Binding ToUser.Name}"
              xmlns:model="clr-namespace:Friendships.Models">
+    <ContentPage.Resources>
+        <Style TargetType="Frame">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light= LightBlue, Dark=#A9A9A9}"></Setter>
+        </Style>
+    </ContentPage.Resources>
+
     <Grid Padding="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -40,7 +47,8 @@
                                 <Frame Grid.Column="{Binding GridColumn}"
                                        Padding="0,10,0,10"
                                        CornerRadius="30"
-                                       BackgroundColor="LightBlue"
+                                       BackgroundColor="{AppThemeBinding Light=White, Dark=#7393B3}"
+
                                        HorizontalOptions="End"
                                        MinimumWidthRequest="100"
                                        BorderColor="Black">
@@ -48,7 +56,8 @@
                                            LineBreakMode="WordWrap"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Start"
-                                           FontSize="14" />
+                                           FontSize="14"
+                                           TextColor="Black"/>
                                 </Frame>
                             </Grid>
                         </ViewCell>
@@ -60,7 +69,7 @@
 
         <Grid Grid.Row="1"
               Margin="10"
-              Background="White"
+              Background="{AppThemeBinding Light= White, Dark=#A9A9A9}"
               Padding="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -70,8 +79,7 @@
             <Entry Placeholder="Type a message..."
                    HorizontalOptions="FillAndExpand"
                    VerticalOptions="End"
-                   Text="{Binding Text}"
-                   TextColor="Black"/>
+                   Text="{Binding Text}"/>
 
             <Button Text="Send"
                     Grid.Column="1"

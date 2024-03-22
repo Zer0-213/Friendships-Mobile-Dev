@@ -2,7 +2,6 @@
 <Shell x:Class="Friendships.AppShell"
        xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:profile="clr-namespace:Friendships"
        xmlns:views="clr-namespace:Friendships.Views"
        xmlns:viewmodel="clr-namespace:Friendships"
        x:DataType="viewmodel:AppShellViewModel"
@@ -15,12 +14,10 @@
     </Shell.Items>
 
     <TabBar Route="MainTab">
-        <Tab Title="Chats"
-             Icon="chat_icon">
+        <Tab Title="Chats">
             <ShellContent ContentTemplate="{DataTemplate views:ChatsDashboardView}" />
         </Tab>
-        <Tab Title="Profile"
-             Icon="{Binding Profile.ProfilePicture}">
+        <Tab Title="Profile">
             <ShellContent ContentTemplate="{DataTemplate views:ProfileView}" />
         </Tab>
     </TabBar>

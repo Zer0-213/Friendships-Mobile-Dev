@@ -5,55 +5,56 @@
              Title="Friendships"
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
              x:DataType="viewmodel:LoginViewModel"
-             Shell.TabBarIsVisible="False"
->
+             Shell.TabBarIsVisible="False">
+    <ContentPage.Resources>
+        <Style TargetType="ScrollView">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light = #00E0EE, Dark =#121212 }"></Setter>
 
-    <ScrollView BackgroundColor="#00E0EE">
+        </Style>
+        <Style TargetType="StackLayout">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light = #00E0EE, Dark =#121212 }"></Setter>
 
-        <StackLayout Background="#00E0EE"
-                     Padding="30"
+        </Style>
+        <Style TargetType="Frame">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light= White, Dark=#A9A9A9}"></Setter>
+        </Style>
+    </ContentPage.Resources>
+    <ScrollView>
+
+        <StackLayout Padding="30"
                      VerticalOptions="Center"
                      MaximumWidthRequest="500">
             <ActivityIndicator IsVisible="{Binding IsLoading}"
                                Color="Black"></ActivityIndicator>
             <Label Text="Sign In"
-                   TextColor="Black"
                    FontFamily="Poppins-Bold"
                    FontSize="30"
                    HorizontalOptions="Center"
                    Margin="20" />
 
-            <Frame BackgroundColor="White"
-                   Padding="20"
+            <Frame Padding="20"
                    CornerRadius="10">
-                <VerticalStackLayout
-                >
-                    <Entry x:Name="UsernameEntry"
-                           Placeholder="Email"
+                <VerticalStackLayout>
+                    <Entry Placeholder="Email"
                            Text="{Binding Username}"
-                           FontSize="16"
-                           />
-                    <Entry x:Name="PasswordEntry"
-                           Placeholder="Password"
+                           FontSize="16" />
+                    <Entry Placeholder="Password"
                            IsPassword="True"
                            Text="{Binding Password}"
-                           FontSize="16"/>
+                           FontSize="16" />
 
                     <Button Text="Sign In"
-                            Background="Orange"
-                            TextColor="White"
                             Command="{Binding SignInPressedCommand}"
-                            FontSize="16"
-                            />
+                            FontSize="16" />
                 </VerticalStackLayout>
             </Frame>
 
             <Button Text="Don't have an account? Sign Up"
-                    BackgroundColor="Orange"
-                    TextColor="White"
                     Margin="0,20,0,0"
-                    Command="{Binding SignUpPressedCommand}"
-                    />
+                    Command="{Binding SignUpPressedCommand}" />
         </StackLayout>
     </ScrollView>
 

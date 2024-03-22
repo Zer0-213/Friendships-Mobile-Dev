@@ -8,8 +8,24 @@
              x:DataType="viewmodel:ChatsDashboardViewModel"
              xmlns:model="clr-namespace:Friendships.Models">
 
-    <StackLayout Padding="10"
-                 BackgroundColor="#00E0EE">
+        <ContentPage.Resources>
+        <Style TargetType="ContentPage">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light = #00E0EE, Dark =#121212 }"></Setter>
+
+        </Style>
+        <Style TargetType="StackLayout">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light = #00E0EE, Dark =#121212 }"></Setter>
+
+        </Style>
+        <Style TargetType="Frame">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light= White, Dark=#A9A9A9}"></Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <StackLayout Padding="10">
         <Button Text="Find Friend"
                 HorizontalOptions="CenterAndExpand"
                 Margin="0,10,0,10"

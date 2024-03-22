@@ -5,11 +5,22 @@
              Title="Profile"
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
              x:DataType="viewmodel:ProfileViewModel"
-             NavigationPage.HasNavigationBar="False"
-             BackgroundColor="#00E0EE">
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <Style TargetType="ContentPage">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light = Cyan, Dark =#121212 }"></Setter>
+
+        </Style>
+        <Style TargetType="VerticalStackLayout">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light = White, Dark =#A9A9A9 }"></Setter>
+
+        </Style>
+    </ContentPage.Resources>
     <VerticalStackLayout Padding="20"
-                         VerticalOptions="Center"
-                         BackgroundColor="White">
+                         VerticalOptions="Center">
 
         <Image  HeightRequest="300"
                 WidthRequest="300"
