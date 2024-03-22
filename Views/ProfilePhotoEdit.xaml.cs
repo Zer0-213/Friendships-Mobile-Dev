@@ -1,4 +1,7 @@
 using Friendships.ViewModels;
+using SkiaSharp;
+using System.Runtime.CompilerServices;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Friendships.Views;
 
@@ -6,12 +9,16 @@ public partial class ProfilePhotoEdit : ContentPage
 {
     private double _originalX, _originalY, _originalWidth, _originalHeight;
 
+    ProfilePhotoEditViewModel viewModel;
+
     public ProfilePhotoEdit()
 	{
 		InitializeComponent();
 
         Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NAaF5cWWJCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXxfcXRcRGdYVEJ3VkU=");
-        BindingContext = new ProfilePhotoEditViewModel(RectangleClip); 
+
+        viewModel = new ProfilePhotoEditViewModel(RectangleClip);
+        BindingContext = viewModel; 
 	}
 
 
@@ -61,5 +68,45 @@ public partial class ProfilePhotoEdit : ContentPage
         }
     }
 
+
+
+    private async void SaveClip_Clicked(object sender, EventArgs e)
+    {
+        const int clipWidth = 200;
+        const int clipHeight = 200;
+
+
+        var clipBitmap = new SKBitmap((int)RectangleClip.Rect.Right + clipWidth, (int)RectangleClip.Rect.Bottom + clipHeight);
+
+        using var surface = SKSurface.Create(new SKImageInfo((int)RectangleClip.Rect.Right + clipWidth, (int)RectangleClip.Rect.Bottom + clipHeight));
+
+        var filePath = (System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            $"{viewModel.Profile.Username}.png"));
+
+        var canvas = surface.Canvas;
+        canvas.DrawBitmap(clipBitmap, new SKRect((float)RectangleClip.Rect.Left, (float)RectangleClip.Rect.Top, (float)RectangleClip.Rect.Right + clipWidth, (float)RectangleClip.Rect.Bottom + clipHeight),
+            new SKRect(0, 0, clipWidth, clipHeight));
+
+        using var imageStream = new MemoryStream();
+        surface.Snapshot().Encode(SKEncodedImageFormat.Png, 100).SaveTo(imageStream);
+
+        var fileStream = File.Create(filePath);
+
+        await imageStream.CopyToAsync(fileStream);
+        imageStream.Close();
+
+        viewModel.Profile.ProfilePicture = new Image()
+        {
+            Source = ImageSource.FromFile(filePath)
+        };
+        viewModel.Profile.ImageStreamToBase64(fileStream);
+
+        fileStream.Close();
+
+        var f = new Firebase();
+        await f.CreateProfile(viewModel.Profile);
+
+        await Shell.Current.GoToAsync("..");
+    }
 }
 

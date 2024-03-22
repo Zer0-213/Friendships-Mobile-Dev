@@ -31,7 +31,7 @@ namespace Friendships.ViewModels
         {
             try
             {
-                Firebase firebase = new Firebase();
+                var firebase = new Firebase();
                 FirebaseClient client = new(firebase.DatabaseURL);
 
                 var userUid = await client.Child("usernames").Child(TextEntry).OnceSingleAsync<String>();
@@ -76,7 +76,11 @@ namespace Friendships.ViewModels
 
                 await client.Child("friends").Child(UserProfile.UserUid).Child(Profile.UserUid).PutAsync<String>(Profile.UserUid);
 
+                await Shell.Current.DisplayAlert("Friend added", $"You have added {UserProfile.Name}", "Close");
+
                 AddButtonEnabled = false;
+
+
             }
             catch (FirebaseException ex)
             {

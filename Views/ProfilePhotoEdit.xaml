@@ -51,7 +51,7 @@
                     Command="{Binding CancelButtonClickedCommand}" />
             <Button WidthRequest="150"
                     Text="Confirm"
-                    Command="{Binding ConfirmButtonClickedCommand}" />
+                    Clicked="SaveClip_Clicked" />
         </FlexLayout>
     </VerticalStackLayout>
 </ContentPage>
