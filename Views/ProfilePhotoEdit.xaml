@@ -7,22 +7,21 @@
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
              x:DataType="viewmodel:ProfilePhotoEditViewModel"
              BackgroundColor="#00E0EE">
-    <VerticalStackLayout VerticalOptions="Center"
+        <VerticalStackLayout VerticalOptions="Center"
                          BackgroundColor="White">
         <VerticalStackLayout.GestureRecognizers>
             <SwipeGestureRecognizer Command="{Binding SwipeBackCommand}"
                                     Direction="Left"></SwipeGestureRecognizer>
         </VerticalStackLayout.GestureRecognizers>
         <Grid Row="1" Padding="10">
-            <Image Source="{Binding PassedImage}"
-               Opacity="0.5" Aspect="AspectFit">
+            <Image x:Name="Test"
+                   Source="{Binding PassedImage}" 
+                   Opacity="0.5" Aspect="AspectFit">
         </Image>
-        <Image Source="{Binding PassedImage}">
+        <Image Source="{Binding PassedImage}" Aspect="AspectFit">
             <Image.Clip>
-                    <EllipseGeometry x:Name="EllipseClip"
-                                     Center="180,180"
-                                     RadiusX="150"
-                                     RadiusY="150"></EllipseGeometry>
+                    <RectangleGeometry x:Name="RectangleClip"
+                                       Rect="0, 0, 200, 200"></RectangleGeometry>
             </Image.Clip>
             <Image.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="OnPanUpdated" />
@@ -30,12 +29,7 @@
                 </Image.GestureRecognizers>
             </Image>
         </Grid>
-        <ci:PortraitView x:Name="potraitImage"
-                         ImageSource="{Binding PassedImage}"
-                         MinimumWidthRequest="200"
-                         MinimumHeightRequest="200"
-                         Margin="30">
-        </ci:PortraitView>
+
 
 
         <FlexLayout Direction="Row"

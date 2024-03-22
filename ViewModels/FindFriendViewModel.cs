@@ -38,7 +38,7 @@ namespace Friendships.ViewModels
 
                 ProfileModel user = await client.Child("profiles").Child(userUid).OnceSingleAsync<ProfileModel>();
 
-                user.ConvertBase64();
+               await user.ConvertBase64();
 
                 UserProfile = user;
 

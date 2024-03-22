@@ -48,7 +48,7 @@ namespace Friendships
             set { config = value; }
         }
 
-        public async Task CreateProfile(ProfileModel profile, bool insertUser)
+        public async Task CreateProfile(ProfileModel profile)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Friendships
                 if (string.IsNullOrWhiteSpace(profile.ProfilePictureBase64))
                 {
                     profile.ProfilePictureBase64 = defultPfpBase64;
-                } 
+                }
 
                 await firebase.Child("profiles").Child(profile.UserUid).PutAsync(new ProfileModel()
                 {
@@ -67,10 +67,9 @@ namespace Friendships
                     Name = profile.Name
                 });
 
-                if (insertUser)
-                {
-                    await firebase.Child("usernames").Child(profile.Username).PutAsync<String>(profile.UserUid);
-                }
+
+                await firebase.Child("usernames").PutAsync<Dictionary<string, string>>(new Dictionary<string, string> { [profile.Username] = profile.UserUid });
+
             }
             catch (FirebaseException ex)
             {
@@ -132,7 +131,7 @@ namespace Friendships
 
             FirebaseClient databaseClient = new FirebaseClient(databaseURL);
             var messageListJson = await databaseClient.Child("messages").Child(fromUser.UserUid).Child(toUser.UserUid).OnceAsJsonAsync();
-            
+
             List<MessageModel> messageList = JsonConvert.DeserializeObject<List<MessageModel>>(messageListJson);
 
 
@@ -140,7 +139,7 @@ namespace Friendships
 
         }
 
-        public async Task StoreMessages(ProfileModel fromUser, ProfileModel toUser,List<MessageModel> messages)
+        public async Task StoreMessages(ProfileModel fromUser, ProfileModel toUser, List<MessageModel> messages)
         {
             FirebaseClient databaseClient = new FirebaseClient(databaseURL);
 

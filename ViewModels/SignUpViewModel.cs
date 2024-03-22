@@ -51,7 +51,7 @@ namespace Friendships.ViewModels
                     Name = FullName,
                     Username = Email.Split("@")[0],
                     UserUid= user.User.Uid
-                },true);
+                });
 
 
                 await Application.Current.MainPage.DisplayAlert("Alert", "User registered successfully", "Ok");

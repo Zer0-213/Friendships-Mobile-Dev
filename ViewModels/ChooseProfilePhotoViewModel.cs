@@ -50,7 +50,7 @@ namespace Friendships.ViewModels
 
                 Firebase firebase = new();
 
-                await firebase.CreateProfile(Profile, false);
+                await firebase.CreateProfile(Profile);
             }
             catch (Exception ex)
             {
