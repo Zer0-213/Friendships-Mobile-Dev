@@ -4,14 +4,37 @@
              x:Class="Friendships.Views.FindFriendView"
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
              x:DataType="viewmodel:FindFriendViewModel"
-             Title="Find a friend"
-             BackgroundColor="#00E0EE">
-    
-    <FlexLayout Margin="0,20,0,0"
+             Title="Find a friend">
+
+    <ContentPage.Resources>
+        <Style TargetType="ScrollView">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light = #00E0EE, Dark =#121212 }"></Setter>
+
+        </Style>
+        <Style TargetType="StackLayout">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light = #00E0EE, Dark =#121212 }"></Setter>
+
+        </Style>
+        <Style TargetType="FlexLayout">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light= White, Dark=#A9A9A9}"></Setter>
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light= White, Dark=#A9A9A9}"></Setter>
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light=Black , Dark=White}"></Setter>
+
+        </Style>
+    </ContentPage.Resources>
+
+        <FlexLayout Margin="0,20,0,0"
                 Direction="Column"
                 JustifyContent="Start"
                 AlignItems="Center"
-                BackgroundColor="White">
+                >
         <FlexLayout.GestureRecognizers>
             <SwipeGestureRecognizer Direction="Left"
                                     Command="{Binding SwipeBackCommand}" />

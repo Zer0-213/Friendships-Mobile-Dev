@@ -74,12 +74,12 @@ namespace Friendships
             catch (FirebaseException ex)
             {
                 Console.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Error", "Error saving profile picture", "Close");
+                await Shell.Current.DisplayAlert("Error", ex.Message, "Close");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Error", "Error saving profile picture", "Close");
+                await Shell.Current.DisplayAlert("Error", "Error saving profile", "Close");
             }
         }
 
@@ -87,14 +87,14 @@ namespace Friendships
         {
             var databaseClient = new FirebaseClient(databaseURL);
 
-            var Profile = await databaseClient.Child("profiles").Child(uid).OnceSingleAsync<ProfileModel>();
+            var profile = await databaseClient.Child("profiles").Child(uid).OnceSingleAsync<ProfileModel>();
 
-            if (string.IsNullOrWhiteSpace(Profile.ProfilePictureBase64))
+            if (string.IsNullOrWhiteSpace(profile.ProfilePictureBase64))
             {
-                Profile.ProfilePictureBase64 = defultPfpBase64;
+                profile.ProfilePictureBase64 = defultPfpBase64;
             }
 
-            return Profile;
+            return profile;
         }
 
         public async Task RetrieveFriendsList(ProfileModel profile)

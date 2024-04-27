@@ -15,7 +15,7 @@
         </Style>
         <Style TargetType="VerticalStackLayout">
             <Setter Property="BackgroundColor"
-                    Value="{AppThemeBinding Light = White, Dark =#A9A9A9 }"></Setter>
+                    Value="{AppThemeBinding Light = Cyan, Dark =#A9A9A9 }"></Setter>
 
         </Style>
     </ContentPage.Resources>
@@ -27,7 +27,7 @@
                 Aspect="AspectFit"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-                Source="{Binding Profile.ProfilePicture.Source}"
+                Source="{Binding Pfp.Source}"
                 Margin="5" />
 
 

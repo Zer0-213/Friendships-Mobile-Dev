@@ -35,6 +35,7 @@ namespace Friendships.ViewModels
                 await Shell.Current.DisplayAlert("Invalid Details", "Please fill out all forms", "Ok");
                 return;
             }
+
             try
             {
 
@@ -44,31 +45,43 @@ namespace Friendships.ViewModels
 
 
 
-                var user = await authClient.CreateUserWithEmailAndPasswordAsync(Email, Password,FullName);
+                var user = await authClient.CreateUserWithEmailAndPasswordAsync(Email, Password, FullName);
 
                 await config.CreateProfile(new ProfileModel()
                 {
                     Name = FullName,
                     Username = Email.Split("@")[0],
-                    UserUid= user.User.Uid
+                    UserUid = user.User.Uid
                 });
 
 
                 await Application.Current.MainPage.DisplayAlert("Alert", "User registered successfully", "Ok");
 
                 await Shell.Current.GoToAsync("..");
-              
 
-            }catch (FirebaseAuthException ex)
-            {
-               await Shell.Current.DisplayAlert("Invalid Details", ex.Message, "Ok");
-            }catch(AuthenticationException ex)
-            {
-                await Shell.Current.DisplayAlert("Sign Up Error", ex.Message, "Ok");
+
             }
-            catch(FirebaseException ex) 
+            catch (FirebaseAuthException ex)
             {
-                await Shell.Current.DisplayAlert("Sign Up Error", ex.Message, "Ok");
+                await Shell.Current.DisplayAlert("Invalid Details", ex.Reason.ToString(), "Ok");
+            }
+            catch (FirebaseException ex)
+            {
+                Console.WriteLine(ex.Message);
+                await Shell.Current.DisplayAlert("Sign Up Error", "Something went wrong adding profile to database",
+                    "Ok");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                await Shell.Current.DisplayAlert("Sign Up Error", "Internal error", "Ok");
+            }
+            finally
+            {
+                FullName = "";
+                Email = "";
+                Password = "";
+
             }
 
 

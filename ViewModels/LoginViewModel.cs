@@ -44,7 +44,7 @@ namespace Friendships.ViewModels
 
                 await firebase.RetrieveFriendsList(Profile);
 
-                await Profile.ConvertBase64();
+                Profile.ConvertBase64(); 
 
                 SharedProfile.Profile = Profile;
 

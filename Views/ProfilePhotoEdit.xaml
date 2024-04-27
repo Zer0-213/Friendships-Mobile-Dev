@@ -19,20 +19,20 @@
         </Style>
     </ContentPage.Resources>
 
-    <VerticalStackLayout VerticalOptions="Center">
+    <VerticalStackLayout VerticalOptions="Center" MaximumWidthRequest="500" MaximumHeightRequest="500">
         <VerticalStackLayout.GestureRecognizers>
             <SwipeGestureRecognizer Command="{Binding SwipeBackCommand}"
                                     Direction="Left"></SwipeGestureRecognizer>
         </VerticalStackLayout.GestureRecognizers>
         <Grid Row="1" Padding="10">
             <Image x:Name="Test"
-                   Source="{Binding PassedImage}" 
+                   Source="{Binding ImageData}" 
                    Opacity="0.5" Aspect="AspectFit">
         </Image>
-        <Image Source="{Binding PassedImage}" Aspect="AspectFit">
+        <Image Source="{Binding ImageData}" Aspect="AspectFit">
             <Image.Clip>
                     <RectangleGeometry x:Name="RectangleClip"
-                                       Rect="0, 0, 200, 200"></RectangleGeometry>
+                                       Rect="0, 0, 300, 300"></RectangleGeometry>
             </Image.Clip>
             <Image.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="OnPanUpdated" />
@@ -51,7 +51,7 @@
                     Command="{Binding CancelButtonClickedCommand}" />
             <Button WidthRequest="150"
                     Text="Confirm"
-                    Clicked="SaveClip_Clicked" />
+                    Command="{Binding SaveClipCommand}" />
         </FlexLayout>
     </VerticalStackLayout>
 </ContentPage>

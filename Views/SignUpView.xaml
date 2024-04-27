@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Friendships.Views.SignUpView"
-             Title="SignUpView"
+             Title="Sign Up"
              xmlns:viewmodel="clr-namespace:Friendships.ViewModels"
              x:DataType="viewmodel:SignUpViewModel">
     <ContentPage.Resources>
@@ -29,7 +29,8 @@
         </ScrollView.GestureRecognizers>
         <StackLayout
                      Padding="30"
-                     VerticalOptions="Center">
+                     VerticalOptions="Center"
+                     MaximumWidthRequest="500">
             <Label Text="Sign Up"
                    FontFamily="Poppins-Bold"
                    FontSize="30"

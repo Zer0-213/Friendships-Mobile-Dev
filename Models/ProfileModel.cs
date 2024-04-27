@@ -33,7 +33,7 @@ namespace Friendships.Models
 
         }
 
-        public async Task ConvertBase64()
+        public void ConvertBase64()
         {
             try
             {
@@ -41,19 +41,10 @@ namespace Friendships.Models
                 byte[] imageBytes = Convert.FromBase64String(ProfilePictureBase64);
                 Stream stream = new MemoryStream(imageBytes);
 
-                var fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), $"{UserUid}.png");
-
-                FileStream fileStream = File.Create(fileName);
-
-                await stream.CopyToAsync(fileStream);
                 ProfilePicture = new Image()
                 {
-                    Source = ImageSource.FromFile(fileName)
+                    Source = ImageSource.FromStream(()=>stream)
                 };
-
-
-                fileStream.Close();
-
 
 
             }
@@ -64,20 +55,5 @@ namespace Friendships.Models
 
         }
 
-        public void ImageStreamToBase64(Stream stream)
-        {
-            if (stream == null)
-                throw new ArgumentNullException(nameof(stream));
-
-            MemoryStream memoryStream = new();
-
-            stream.CopyTo(memoryStream);
-
-            var imageBytes = memoryStream.ToArray();
-
-            ProfilePictureBase64 = Convert.ToBase64String(imageBytes);
-
-
-        }
     }
 }

@@ -38,7 +38,7 @@ namespace Friendships.ViewModels
 
                 ProfileModel user = await client.Child("profiles").Child(userUid).OnceSingleAsync<ProfileModel>();
 
-               await user.ConvertBase64();
+                user.ConvertBase64();
 
                 UserProfile = user;
 
@@ -70,11 +70,12 @@ namespace Friendships.ViewModels
             {
                 FirebaseClient client = new(new Firebase().DatabaseURL);
 
-                Profile.Friends.Add(UserProfile);
+                SharedProfile.Profile.Friends.Add(UserProfile);
 
                 await client.Child("friends").Child(Profile.UserUid).Child(UserProfile.UserUid).PutAsync<String>(UserProfile.UserUid);
 
                 await client.Child("friends").Child(UserProfile.UserUid).Child(Profile.UserUid).PutAsync<String>(Profile.UserUid);
+
 
                 await Shell.Current.DisplayAlert("Friend added", $"You have added {UserProfile.Name}", "Close");
 
@@ -94,7 +95,7 @@ namespace Friendships.ViewModels
         }
 
         [RelayCommand]
-        async static Task SwipeBack()
+        async Task SwipeBack()
         {
             await Shell.Current.GoToAsync("..");
         }

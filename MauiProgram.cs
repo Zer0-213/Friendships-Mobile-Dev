@@ -23,8 +23,11 @@ namespace Friendships
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+
             builder.Services.AddTransient<ChatsDashboardViewModel>();
             builder.Services.AddTransient<ChatsDashboardView>();
+
+
 #if DEBUG
             builder.Logging.AddDebug();
 

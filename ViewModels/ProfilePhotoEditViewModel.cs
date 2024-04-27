@@ -2,11 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using Friendships.Models;
 using Microsoft.Maui.Controls.Shapes;
-using Image = Microsoft.Maui.Controls.Image;
-
 using SkiaSharp;
-using SkiaSharp.Views.Maui.Controls;
-using Path = Microsoft.Maui.Controls.Shapes.Path;
+using Syncfusion.Maui.Core.Carousel;
+
 
 
 namespace Friendships.ViewModels
@@ -18,23 +16,16 @@ namespace Friendships.ViewModels
 
 
         [ObservableProperty]
-        string passedImage;
+        byte[] passedImage;
+
+        [ObservableProperty]
+        ImageSource imageData;
 
         [ObservableProperty]
         ProfileModel profile;
 
         [ObservableProperty]
         RectangleGeometry rectangleClip;
-
-
-
-        public ProfilePhotoEditViewModel(RectangleGeometry rectangleClip)
-        {
-            RectangleClip = rectangleClip;
-
-        }
-
-
 
         [RelayCommand]
         private static async Task CancelButtonClicked()
@@ -49,6 +40,37 @@ namespace Friendships.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
+        [RelayCommand]
+        private async Task SaveClip()
+        {
+
+            var image = SKImage.FromEncodedData(PassedImage);
+            var bm = SKBitmap.FromImage(image);
+
+
+            var canvas = new SKCanvas(bm);
+
+            canvas.DrawBitmap(bm, new SKPoint(0, 0));
+            canvas.ClipRect(new SKRect((float)RectangleClip.Rect.Left, (float)RectangleClip.Rect.Top, (float)RectangleClip.Rect.Right, (float)RectangleClip.Rect.Bottom));
+
+            canvas.Save();
+
+            byte[] imageBytes;
+            using (var imageStream = new MemoryStream())
+            {
+                bm.Encode(SKEncodedImageFormat.Png, 100).SaveTo(imageStream);
+                imageBytes = imageStream.ToArray();
+            }
+
+
+            Profile.ProfilePictureBase64 = Convert.ToBase64String(imageBytes);
+
+            var f = new Firebase();
+            await f.CreateProfile(Profile);
+
+            await Shell.Current.GoToAsync("..");
+        }
     }
+
 }
 

@@ -18,6 +18,7 @@ namespace Friendships.ViewModels
         public ProfileViewModel()
         {
             Profile = SharedProfile.Profile;
+
         }
 
         [RelayCommand]
@@ -39,10 +40,6 @@ namespace Friendships.ViewModels
                         }
                         photo = await MediaPicker.Default.CapturePhotoAsync();
 
-                        if (photo == null)
-                        {
-                            return;
-                        }
                         break;
 
                     case "Choose from gallery":
@@ -54,29 +51,29 @@ namespace Friendships.ViewModels
 
                 }
 
+                if (photo == null)
+                {
+                    return;
+                }
 
                 Stream photoStream = await photo.OpenReadAsync();
+                var memoryStream = new MemoryStream();
+                await photoStream.CopyToAsync(memoryStream);
+                var photoBytes = memoryStream.ToArray();
 
-                string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "temp.png");
+                var navigation = new NavigationPage();
 
-                FileStream fileStream = File.Create(fileName);
-
-
-                await photoStream.CopyToAsync(fileStream);
-
-                fileStream.Close();
-                photoStream.Dispose();
 
                 await Shell.Current.GoToAsync(nameof(ProfilePhotoEdit), new Dictionary<string, object>
                 {
                     ["profile"] = Profile,
-                    ["image"] = fileName,
+                    ["image"] = photoBytes,
 
                 });
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
                 await Shell.Current.DisplayAlert("Error", "Error saving picture", "Ok");
             }
 
